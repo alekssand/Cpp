@@ -6,7 +6,7 @@
 #include "IPriorityQueue.h" 
 
 template<typename T>
-class PrioQueue : public IPriorityQueue<T>
+class PrioQueue:public IPriorityQueue<T>
 {
 private:
 	class Node
@@ -32,7 +32,7 @@ public:
 
 };
 
-template <typename T>
+template<typename T>
 PrioQueue<T>::PrioQueue()
 {
 	this->nrOfNodes = 0;
@@ -44,7 +44,7 @@ PrioQueue<T>::~PrioQueue()
 {
 	Node *walker = this->first;
 
-	while (walker != nullptr)
+	while(walker != nullptr)
 	{
 		first = walker->next;
 		delete walker;
@@ -53,18 +53,18 @@ PrioQueue<T>::~PrioQueue()
 	this->first = nullptr;
 }
 
-template <typename T>
+template<typename T>
 PrioQueue<T>::PrioQueue(const PrioQueue& element)
 {
 	this->first = nullptr;
 	this->nrOfNodes = element.nrOfNodes;
-	if (element.first != nullptr)
+	if(element.first != nullptr)
 	{
 		Node * listWalker = element.first;
 		this->first = new Node(listWalker->element);
 		Node * tail = this->first;
 
-		while (listWalker->next != nullptr)
+		while(listWalker->next != nullptr)
 		{
 			listWalker = listWalker->next;
 			tail->next = new Node(listWalker->element);
@@ -76,12 +76,12 @@ PrioQueue<T>::PrioQueue(const PrioQueue& element)
 template<typename T>
 void PrioQueue<T>::enqueue(const T& element)
 {
-	if (this->first == nullptr)
+	if(this->first == nullptr)
 	{
 		this->first = new Node(element);
 		
 	}
-	else if (this->first->element < element)
+	else if(this->first->element < element)
 	{
 		Node *e = new Node(element);
 		e->next = this->first; 
@@ -101,7 +101,6 @@ void PrioQueue<T>::enqueue(const T& element)
 				keepGoing = false;
 			}
 			walker = walker->next;
-
 		}
 		
 		if (walker->next == nullptr)
@@ -109,7 +108,6 @@ void PrioQueue<T>::enqueue(const T& element)
 			Node * e = new Node(element);
 			walker->next = e;
 		}
-
 	}
 	this->nrOfNodes++;
 }
@@ -118,7 +116,7 @@ void PrioQueue<T>::enqueue(const T& element)
 template<typename T>
 T PrioQueue<T>::dequeue()
 {
-	if (this->first == nullptr)
+	if(this->first == nullptr)
 	{
 		throw "The queue is empty";
 	}
@@ -130,21 +128,20 @@ T PrioQueue<T>::dequeue()
 	return result;
 }
 
-template <typename T>
+template<typename T>
 T PrioQueue<T>::peek() const
 {
-	if (this->first == nullptr)
+	if(this->first == nullptr)
 	{
 		throw "the queue is empty!";
 	}
 	return this->first->element; 
 }
 
-template <typename T>
+template<typename T>
 int PrioQueue<T>::size() const
 {
 	return this->nrOfNodes; 
 }
-
 
 #endif
